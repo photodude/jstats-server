@@ -42,8 +42,7 @@ class ApplicationServiceProvider implements ServiceProviderInterface
 		$container->alias(CliApplication::class, JoomlaApplication\AbstractCliApplication::class)
 			->share(
 				JoomlaApplication\AbstractCliApplication::class,
-				function (Container $container)
-				{
+				function (Container $container) {
 					$application = new CliApplication(
 						$container->get(Cli::class),
 						$container->get('config'),
@@ -63,8 +62,7 @@ class ApplicationServiceProvider implements ServiceProviderInterface
 		$container->alias(WebApplication::class, JoomlaApplication\AbstractWebApplication::class)
 			->share(
 				JoomlaApplication\AbstractWebApplication::class,
-				function (Container $container)
-				{
+				function (Container $container) {
 					$application = new WebApplication($container->get(Input::class), $container->get('config'));
 
 					// Inject extra services
@@ -78,8 +76,7 @@ class ApplicationServiceProvider implements ServiceProviderInterface
 
 		$container->share(
 			Input::class,
-			function ()
-			{
+			function () {
 				return new Input($_REQUEST);
 			},
 			true
@@ -87,8 +84,7 @@ class ApplicationServiceProvider implements ServiceProviderInterface
 
 		$container->share(
 			Cli::class,
-			function ()
-			{
+			function () {
 				return new Cli;
 			},
 			true
@@ -96,8 +92,7 @@ class ApplicationServiceProvider implements ServiceProviderInterface
 
 		$container->share(
 			Console::class,
-			function (Container $container)
-			{
+			function (Container $container) {
 				$console = new Console;
 				$console->setContainer($container);
 
@@ -107,15 +102,14 @@ class ApplicationServiceProvider implements ServiceProviderInterface
 
 		$container->share(
 			JoomlaApplication\Cli\Output\Processor\ColorProcessor::class,
-			function (Container $container)
-			{
+			function (Container $container) {
 				$processor = new JoomlaApplication\Cli\Output\Processor\ColorProcessor;
 
 				/** @var Input $input */
 				$input = $container->get(Cli::class);
 
 				if ($input->get('nocolors'))
-				{
+			{
 					$processor->noColors = true;
 				}
 
@@ -129,16 +123,14 @@ class ApplicationServiceProvider implements ServiceProviderInterface
 		$container->alias(JoomlaApplication\Cli\CliOutput::class, JoomlaApplication\Cli\Output\Stdout::class)
 			->share(
 				JoomlaApplication\Cli\Output\Stdout::class,
-				function (Container $container)
-				{
+				function (Container $container) {
 					return new JoomlaApplication\Cli\Output\Stdout($container->get(JoomlaApplication\Cli\Output\Processor\ColorProcessor::class));
 				}
 			);
 
 		$container->share(
 			Router::class,
-			function (Container $container)
-			{
+			function (Container $container) {
 				$router = (new Router($container->get(Input::class)))
 					->setContainer($container)
 					->setControllerPrefix('Stats\\Controllers\\')
@@ -153,8 +145,7 @@ class ApplicationServiceProvider implements ServiceProviderInterface
 
 		$container->share(
 			HelpCommand::class,
-			function (Container $container)
-			{
+			function (Container $container) {
 				$command = new HelpCommand;
 
 				$command->setApplication($container->get(JoomlaApplication\AbstractApplication::class));
@@ -167,8 +158,7 @@ class ApplicationServiceProvider implements ServiceProviderInterface
 
 		$container->share(
 			SnapshotCommand::class,
-			function (Container $container)
-			{
+			function (Container $container) {
 				$command = new SnapshotCommand($container->get(StatsJsonView::class));
 
 				$command->setApplication($container->get(JoomlaApplication\AbstractApplication::class));
@@ -181,8 +171,7 @@ class ApplicationServiceProvider implements ServiceProviderInterface
 
 		$container->share(
 			DisplayControllerGet::class,
-			function (Container $container)
-			{
+			function (Container $container) {
 				$controller = new DisplayControllerGet(
 					$container->get(StatsJsonView::class),
 					$container->get(Cache::class)
@@ -198,8 +187,7 @@ class ApplicationServiceProvider implements ServiceProviderInterface
 
 		$container->share(
 			SubmitControllerCreate::class,
-			function (Container $container)
-			{
+			function (Container $container) {
 				$controller = new SubmitControllerCreate(
 					$container->get(StatsModel::class)
 				);
@@ -214,8 +202,7 @@ class ApplicationServiceProvider implements ServiceProviderInterface
 
 		$container->share(
 			SubmitControllerGet::class,
-			function (Container $container)
-			{
+			function (Container $container) {
 				$controller = new SubmitControllerGet;
 
 				$controller->setApplication($container->get(JoomlaApplication\AbstractApplication::class));
@@ -228,8 +215,7 @@ class ApplicationServiceProvider implements ServiceProviderInterface
 
 		$container->share(
 			StatsModel::class,
-			function (Container $container)
-			{
+			function (Container $container) {
 				return new StatsModel(
 					$container->get(DatabaseDriver::class)
 				);
@@ -239,8 +225,7 @@ class ApplicationServiceProvider implements ServiceProviderInterface
 
 		$container->share(
 			StatsJsonView::class,
-			function (Container $container)
-			{
+			function (Container $container) {
 				return new StatsJsonView(
 					$container->get(StatsModel::class)
 				);

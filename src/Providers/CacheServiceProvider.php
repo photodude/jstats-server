@@ -28,21 +28,20 @@ class CacheServiceProvider implements ServiceProviderInterface
 		$container->alias('cache', CacheInterface::class)
 			->share(
 				CacheInterface::class,
-				function (Container $container)
-				{
+				function (Container $container) {
 					/** @var \Joomla\Registry\Registry $config */
 					$config = $container->get('config');
 
 					// If caching isn't enabled then just return a void cache
 					if (!$config->get('cache.enabled', false))
-					{
+    {
 						return new Cache\VoidCache;
 					}
 
 					$adapter = $config->get('cache.adapter', 'filesystem');
 
 					switch ($adapter)
-					{
+    {
 						case 'array':
 							$handler = new Cache\ArrayCache;
 
@@ -53,13 +52,13 @@ class CacheServiceProvider implements ServiceProviderInterface
 
 							// If no path is given, fall back to the system's temporary directory
 							if (empty($path))
-							{
+					{
 								$path = sys_get_temp_dir();
 							}
 
 							// If the path is relative, make it absolute
 							if (substr($path, 0, 1) !== '/')
-							{
+					{
 								$path = APPROOT . '/' . $path;
 							}
 
@@ -72,13 +71,13 @@ class CacheServiceProvider implements ServiceProviderInterface
 
 							// If no path is given, fall back to the system's temporary directory
 							if (empty($path))
-							{
+					{
 								$path = sys_get_temp_dir();
 							}
 
 							// If the path is relative, make it absolute
 							if (substr($path, 0, 1) !== '/')
-							{
+					{
 								$path = APPROOT . '/' . $path;
 							}
 

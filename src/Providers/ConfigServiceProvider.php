@@ -53,8 +53,7 @@ class ConfigServiceProvider implements ServiceProviderInterface
 	{
 		$container->share(
 			'config',
-			function ()
-			{
+			function () {
 				return $this->config;
 			},
 			true

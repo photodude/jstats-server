@@ -94,7 +94,7 @@ class SubmitControllerCreate extends AbstractController
 
 			$this->getApplication()->setHeader('HTTP/1.1 500 Internal Server Error', 500, true);
 			$this->getApplication()->setBody(json_encode($response));
-	
+
 			return true;
 		}
 
@@ -105,10 +105,10 @@ class SubmitControllerCreate extends AbstractController
 				'error'   => true,
 				'message' => 'Invalid data submission.'
 			];
-	
+
 			$this->getApplication()->setHeader('HTTP/1.1 500 Internal Server Error', 500, true);
 			$this->getApplication()->setBody(json_encode($response));
-	
+
 			return true;
 		}
 

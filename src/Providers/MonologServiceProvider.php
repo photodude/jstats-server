@@ -31,8 +31,7 @@ class MonologServiceProvider implements ServiceProviderInterface
 		// Register the PSR-3 processor
 		$container->share(
 			'monolog.processor.psr3',
-			function ()
-			{
+			function () {
 				return new PsrLogMessageProcessor;
 			}
 		);
@@ -40,8 +39,7 @@ class MonologServiceProvider implements ServiceProviderInterface
 		// Register the web processor
 		$container->share(
 			'monolog.processor.web',
-			function ()
-			{
+			function () {
 				return new WebProcessor;
 			}
 		);
@@ -49,8 +47,7 @@ class MonologServiceProvider implements ServiceProviderInterface
 		// Register the web application handler
 		$container->share(
 			'monolog.handler.application',
-			function (Container $container)
-			{
+			function (Container $container) {
 				/** @var \Joomla\Registry\Registry $config */
 				$config = $container->get('config');
 
@@ -66,8 +63,7 @@ class MonologServiceProvider implements ServiceProviderInterface
 		// Register the database handler
 		$container->share(
 			'monolog.handler.database',
-			function (Container $container)
-			{
+			function (Container $container) {
 				/** @var \Joomla\Registry\Registry $config */
 				$config = $container->get('config');
 
@@ -84,8 +80,7 @@ class MonologServiceProvider implements ServiceProviderInterface
 		// Register the web application Logger
 		$container->share(
 			'monolog.logger.application',
-			function (Container $container)
-			{
+			function (Container $container) {
 				return new Logger(
 					'Application',
 					[
@@ -101,8 +96,7 @@ class MonologServiceProvider implements ServiceProviderInterface
 		// Register the CLI application Logger
 		$container->share(
 			'monolog.logger.cli',
-			function (Container $container)
-			{
+			function (Container $container) {
 				return new Logger(
 					'Application',
 					[
@@ -115,8 +109,7 @@ class MonologServiceProvider implements ServiceProviderInterface
 		// Register the database Logger
 		$container->share(
 			'monolog.logger.database',
-			function (Container $container)
-			{
+			function (Container $container) {
 				return new Logger(
 					'Database',
 					[
