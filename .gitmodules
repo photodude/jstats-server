@@ -1,0 +1,4 @@
+[submodule ".travis/phpcs"]
+	path = .travis/phpcs
+	url = https://github.com/photodude/coding-standards.git
+	branch = phpcs-2
