@@ -34,14 +34,14 @@ class CacheServiceProvider implements ServiceProviderInterface
 
 					// If caching isn't enabled then just return a void cache
 					if (!$config->get('cache.enabled', false))
-    {
+	{
 						return new Cache\VoidCache;
 					}
 
 					$adapter = $config->get('cache.adapter', 'filesystem');
 
 					switch ($adapter)
-    {
+	{
 						case 'array':
 							$handler = new Cache\ArrayCache;
 
