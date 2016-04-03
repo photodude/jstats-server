@@ -39,4 +39,8 @@ script:
   - if [[ $RUN_PHPCS == "yes" ]]; then php scripts/phpcbf --config-set show_progress 1 .; fi
   - if [[ $RUN_PHPCS == "yes" ]]; then php scripts/phpcbf --config-set report_width 150 .; fi
   - if [[ $RUN_PHPCS == "yes" ]]; then php scripts/phpcbf --config-set encoding utf-8 .; fi
-  - if [ "$RUN_PHPCS" == "yes" ]; then php scripts/phpcbf --report=full --colors -p -vvv -s --ignore=*/PHP_CodeSniffer/* --standard=Joomla $TRAVIS_BUILD_DIR/src/ .; fi;
+  - if [[ $RUN_PHPCS == "yes" ]]; then php scripts/phpcs --config-set show_progress 1 .; fi
+  - if [[ $RUN_PHPCS == "yes" ]]; then php scripts/phpcs --config-set report_width 150 .; fi
+  - if [[ $RUN_PHPCS == "yes" ]]; then php scripts/phpcs --config-set encoding utf-8 .; fi
+  - if [ "$RUN_PHPCS" == "yes" ]; then php scripts/phpcs --report=full --colors -p -s --ignore=*/PHP_CodeSniffer/* --standard=Joomla $TRAVIS_BUILD_DIR/src/ .; fi;
+  - if [ "$RUN_PHPCS" == "yes" ]; then php scripts/phpcbf --report=full,diff --colors -p -vv -s --ignore=*/PHP_CodeSniffer/* --standard=Joomla $TRAVIS_BUILD_DIR/src/ .; fi;
