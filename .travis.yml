@@ -5,13 +5,15 @@ language: php
 
 env:
   global:
+    - PHPUNIT_FLAGS=""
+    - RUN_PHPCS="no"
     - USE_SCRUTINIZER="no"
 
 matrix:
   include:
     - php: 5.5
     - php: 5.6
-      env: PHPUNIT_FLAGS="--coverage-clover=coverage.clover" USE_SCRUTINIZER="yes"
+      env: PHPUNIT_FLAGS="--coverage-clover=coverage.clover" RUN_PHPCS="yes" USE_SCRUTINIZER="yes"
     - php: 7.0
 
 before_script:
@@ -22,3 +24,9 @@ script:
   - vendor/bin/phpunit --configuration phpunit.travisci.xml $PHPUNIT_FLAGS
   - if [ "$USE_SCRUTINIZER" == "yes" ]; then wget https://scrutinizer-ci.com/ocular.phar; fi;
   - if [ "$USE_SCRUTINIZER" == "yes" ]; then php ocular.phar code-coverage:upload --format=php-clover coverage.clover; fi;
+  - if [[ $RUN_PHPCS == "yes" ]]; then vendor/bin/phpcs -i .; fi
+  - if [[ $RUN_PHPCS == "yes" ]]; then vendor/bin/phpcs --version .; fi
+  - if [[ $RUN_PHPCS == "yes" ]]; then vendor/bin/phpcs --config-set show_progress 1 .; fi
+  - if [[ $RUN_PHPCS == "yes" ]]; then vendor/bin/phpcs --config-set report_width 150 .; fi
+  - if [[ $RUN_PHPCS == "yes" ]]; then vendor/bin/phpcs --config-set encoding utf-8 .; fi
+  - if [ "$RUN_PHPCS" == "yes" ]; then vendor/bin/phpcs --report=full --colors -p -s --extensions=php --standard=.travis/phpcs/Joomla/ruleset.xml src/; fi;
