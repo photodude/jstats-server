@@ -39,4 +39,4 @@ script:
   - if [[ $RUN_PHPCS == "yes" ]]; then php scripts/phpcbf --config-set show_progress 1 .; fi
   - if [[ $RUN_PHPCS == "yes" ]]; then php scripts/phpcbf --config-set report_width 150 .; fi
   - if [[ $RUN_PHPCS == "yes" ]]; then php scripts/phpcbf --config-set encoding utf-8 .; fi
-  - if [ "$RUN_PHPCS" == "yes" ]; then php scripts/phpcbf --report=full --colors -p -vv --ignore=*/PHP_CodeSniffer/* --standard=Joomla $TRAVIS_BUILD_DIR/src/ .; fi;
+  - if [ "$RUN_PHPCS" == "yes" ]; then php scripts/phpcbf --report=full --colors -p -vvv -s --ignore=*/PHP_CodeSniffer/* --standard=Joomla $TRAVIS_BUILD_DIR/src/ .; fi;
