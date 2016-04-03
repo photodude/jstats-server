@@ -39,4 +39,4 @@ script:
   - if [[ $RUN_PHPCS == "yes" ]]; then php scripts/phpcs --config-set show_progress 1 .; fi
   - if [[ $RUN_PHPCS == "yes" ]]; then php scripts/phpcs --config-set report_width 150 .; fi
   - if [[ $RUN_PHPCS == "yes" ]]; then php scripts/phpcs --config-set encoding utf-8 .; fi
-  - if [ "$RUN_PHPCS" == "yes" ]; then php scripts/phpcs --report=full --colors -p -s --extensions=php --standard=Joomla $TRAVIS_BUILD_DIR .; fi;
+  - if [ "$RUN_PHPCS" == "yes" ]; then php scripts/phpcs --report=full --colors -p -s --extensions=php --standard=Joomla $TRAVIS_BUILD_DIR/jstats-server/src/ .; fi;
